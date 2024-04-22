@@ -12,25 +12,27 @@ import inquirer from "inquirer"
     3 A) if pin is correct print congrats msg
     3 B) else print incorrect pin message & stop any further execution of code
 
- 4- Make another user prompt (by using an object) which has three options to choose from
+ 4- Then make a user prompt (by using an object) which says to select account type    
+
+ 5- Make another user prompt (by using an object) which has three options to choose from
     [ withdraw cash manually, select the default amount, check balance ]
     
-    4 A) if selected withdraw cash manually:
+    5 A) if selected withdraw cash manually:
 
         a) 1)- Make a user prompt (by using an object) which says enter your amount
                 if user selected more than the current balance print Insufficient balance
                 else show user the remaining balance (Current balance - withdrawn amount)
              
-    4 B) if selected the default amount:
+    5 B) if selected the default amount:
 
         a) 1)- Make a user prompt (by using an object) which says select default amount from below: [3000, 5000, 10000]
                                    Note: {add a new parameter showing default amounts in object}
                 print the remaining balance (Current balance - withdrawn amount)
                       
-    4 C) if check balance is selected:
+    5 C) if check balance is selected:
          Print the current Balance    
                        
-5- Print Thanks Msg 
+6- Print Thanks Msg 
 */
 
 
@@ -63,8 +65,23 @@ Congratulations, your Pin Code is correct!`)}
     else{console.log(`
 Your Pin code is incorrect`); process.exit(1)} // ; process.exit (1) stops the execution of program
                                 
-                                         
-// 4- Make another user prompt (by using an object) which has three options to choose from
+
+// 4- Then make a user prompt (by using an object) which says to select account type
+let accountType = await inquirer.prompt(
+    [
+        {
+            name: "type",
+            message: `
+Please select the account type
+`,
+            type: "list", //ab kiyunke withdraw & check balance 2 options hein tu array use hoga
+            choices: ["savings account", "current account"]
+        }
+    ]
+)
+
+
+// 5- Make another user prompt (by using an object) which has three options to choose from
     let operationAnswer = await inquirer.prompt(
         [
             {
@@ -78,7 +95,7 @@ Please select any of the options below
         ]
     ) 
     
-    //4 A) if selected withdraw cash manually:
+    //5 A) if selected withdraw cash manually:
         //a) 1)- Make a user prompt (by using an object) which says enter your amount
     if(operationAnswer.operation === "withdraw cash manually")
         {                           
@@ -102,7 +119,7 @@ Your remaining Balance is: ${myBalance}`)
         }
     }            
             
-    //4 B) if selected the default amount:
+    //5 B) if selected the default amount:
         //a) 1)- Make a user prompt (by using an object) which says select default amount from below: [3000, 5000, 10000]
                                                           //Note: {add a new parameter showing default amounts in object}
     if(operationAnswer.operation === "select the default amount")
@@ -124,14 +141,14 @@ Select the default amount from the following:
 Your remaining Balance is: ${myBalance}`)
         }
           
-    //4 C) if check balance is selected then print the current Balance
+    //5 C) if check balance is selected then print the current Balance
     else if(operationAnswer.operation ==="check balance"){
     console.log (`
 Your current Balance is: ${myBalance}
 `)}
     
 
-// 5- Print Thanks Msg
+// 6- Print Thanks Msg
 console.log(`
     Thank you for using this our service
     `)
